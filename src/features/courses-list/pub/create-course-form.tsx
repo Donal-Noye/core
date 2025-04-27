@@ -64,7 +64,7 @@ export function CreateCourseForm({
               <FormLabel>Название</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="название..."
+                  placeholder="Название..."
                   disabled={isCreateTransition}
                   {...field}
                 />
@@ -81,7 +81,7 @@ export function CreateCourseForm({
               <FormLabel>Описание</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="описание..."
+                  placeholder="Описание..."
                   disabled={isCreateTransition}
                   {...field}
                 />
