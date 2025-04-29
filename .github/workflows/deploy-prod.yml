@@ -1,4 +1,4 @@
-name: deploy prod
+name: deploy production
 
 on:
   push:
@@ -22,7 +22,7 @@ jobs:
     needs: lint
     runs-on: ubuntu-latest
     concurrency:
-      group: prod
+      group: production
       cancel-in-progress: true
     steps:
       - name: SSH Command
