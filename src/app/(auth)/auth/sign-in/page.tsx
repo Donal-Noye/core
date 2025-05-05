@@ -19,6 +19,7 @@ export default function AuthenticationPage() {
               Нажимая продолжить вы соглашаетесь с{" "}
               <Link
                 href="/terms"
+                prefetch={false}
                 className="underline underline-offset-4 hover:text-primary"
               >
                 Пользовательским соглашением
@@ -26,6 +27,7 @@ export default function AuthenticationPage() {
               и{" "}
               <Link
                 href="/privacy"
+                prefetch={false}
                 className="underline underline-offset-4 hover:text-primary"
               >
                 Политикой конфиденциальности
