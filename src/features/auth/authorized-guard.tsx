@@ -1,6 +1,6 @@
 "use client";
 
-import { useAppSession } from "@/entities/user/session.client";
+import { useAppSession } from "@/entities/user/_vm/_ui/use-app-session";
 import { FullPageSpinner } from "@/shared/ui/full-page-spinner";
 import { signIn } from "next-auth/react";
 import React, { useEffect } from "react";
@@ -20,8 +20,8 @@ export default function AuthorizedGuard({
     }
   }, [isAuthenticated]);
 
-  const isLoading = session.status === "loading" ||
-        session.status === "unauthenticated"
+  const isLoading =
+    session.status === "loading" || session.status === "unauthenticated";
 
   return (
     <>
