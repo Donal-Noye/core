@@ -13,7 +13,12 @@ export const nextAuthConfig: AuthOptions = {
   adapter: {
     ...prismaAdapter,
     createUser: (user) => {
-      return createUserUseCase.exec(user);
+      try {
+        return createUserUseCase.exec(user);
+      } catch (e) {
+        console.error("❌ Ошибка в createUser:", e);
+        throw e;
+      }
     },
   } as AuthOptions["adapter"],
   callbacks: {
