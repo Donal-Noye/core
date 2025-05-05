@@ -1,5 +1,5 @@
 import { Separator } from "@/shared/ui/separator";
-import { ProfileFormContainer } from "@/features/update-profile/update-profile-form";
+import { UpdateProfileForm } from "@/features/update-profile/update-profile-form";
 
 export default function ProfilePage({ params }: { params: { id: string } }) {
   return (
@@ -11,7 +11,7 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
         </p>
       </div>
       <Separator />
-      <ProfileFormContainer userId={params.id} />
+      <UpdateProfileForm userId={params.id} />
     </main>
   );
 }
