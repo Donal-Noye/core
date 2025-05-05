@@ -12,9 +12,6 @@ type CreateUser = {
 
 export class CreateUserUseCase {
   async exec(data: CreateUser) {
-    const existing = await userRepository.getByEmail(data.email);
-    if (existing) return existing;
-
     const adminEmails = privateConfig.ADMIN_EMAILS?.split(",") ?? [];
     const role = adminEmails.includes(data.email) ? ROLES.ADMIN : ROLES.USER;
 
