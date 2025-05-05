@@ -18,16 +18,14 @@ export default function AuthenticationPage() {
             <p className="px-0 text-center text-sm text-muted-foreground">
               Нажимая продолжить вы соглашаетесь с{" "}
               <Link
-                href="/terms"
-                prefetch={false}
+                href="/"
                 className="underline underline-offset-4 hover:text-primary"
               >
                 Пользовательским соглашением
               </Link>{" "}
               и{" "}
               <Link
-                href="/privacy"
-                prefetch={false}
+                href="/"
                 className="underline underline-offset-4 hover:text-primary"
               >
                 Политикой конфиденциальности

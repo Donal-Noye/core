@@ -11,8 +11,7 @@ export function MainNav() {
       </Link>
       <Link
         className="transition-colors hover:text-foreground/80 text-foreground/60"
-        href="/learn"
-        prefetch={false}
+        href="/"
       >
         Обучение
       </Link>
