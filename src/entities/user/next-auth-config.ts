@@ -23,6 +23,7 @@ export const nextAuthConfig: AuthOptions = {
         ...session,
         user: {
           ...session.user,
+          email: user.email,
           id: user.id,
           role: user.role,
         },
