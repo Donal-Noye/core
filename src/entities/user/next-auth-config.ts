@@ -23,7 +23,6 @@ export const nextAuthConfig: AuthOptions = {
         ...session,
         user: {
           ...session.user,
-          email: user.email,
           id: user.id,
           role: user.role,
         },
@@ -52,6 +51,11 @@ export const nextAuthConfig: AuthOptions = {
       GithubProvider({
         clientId: privateConfig.GITHUB_ID,
         clientSecret: privateConfig.GITHUB_SECRET,
+        authorization: {
+          params: {
+            scope: "user:email",
+          },
+        },
       }),
   ]),
 };
