@@ -10,15 +10,11 @@ import { createUserUseCase } from "./_use-case/create-user";
 const prismaAdapter = PrismaAdapter(dbClient);
 
 export const nextAuthConfig: AuthOptions = {
+  debug: true,
   adapter: {
     ...prismaAdapter,
     createUser: (user) => {
-      try {
-        return createUserUseCase.exec(user);
-      } catch (e) {
-        console.error("❌ Ошибка в createUser:", e);
-        throw e;
-      }
+      return createUserUseCase.exec(user);
     },
   } as AuthOptions["adapter"],
   callbacks: {
