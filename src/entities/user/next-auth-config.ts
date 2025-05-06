@@ -5,9 +5,35 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { dbClient } from "@/shared/lib/db";
 import { privateConfig } from "@/shared/config/private";
 import { compact } from "lodash-es";
+import { createUserUseCase } from "./_use-case/create-user";
+
+const prismaAdapter = PrismaAdapter(dbClient);
 
 export const nextAuthConfig: AuthOptions = {
-  adapter: PrismaAdapter(dbClient) as AuthOptions["adapter"],
+  adapter: {
+    ...prismaAdapter,
+    createUser: (user) => {
+      console.log("Creating user with data:", user);
+      return createUserUseCase.exec(user);
+    },
+  } as AuthOptions["adapter"],
+  callbacks: {
+    session: async ({ session, user }) => {
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: user.id,
+          role: user.role,
+        },
+      };
+    },
+  },
+  pages: {
+    signIn: "/auth/sign-in",
+    newUser: "/auth/new-user",
+    verifyRequest: "/auth/verify-request",
+  },
   providers: compact([
     EmailProvider({
       server: {
@@ -23,8 +49,11 @@ export const nextAuthConfig: AuthOptions = {
     privateConfig.GITHUB_ID &&
       privateConfig.GITHUB_SECRET &&
       GithubProvider({
-        clientId: privateConfig.GITHUB_ID ?? "",
-        clientSecret: privateConfig.GITHUB_SECRET ?? "",
+        clientId: privateConfig.GITHUB_ID,
+        clientSecret: privateConfig.GITHUB_SECRET,
+        authorization: {
+          params: { scope: "user:email" },
+        },
       }),
   ]),
 };
