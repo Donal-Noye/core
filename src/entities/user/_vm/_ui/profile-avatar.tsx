@@ -16,7 +16,12 @@ export const ProfileAvatar = ({
   }
 
   return (
-    <Avatar className={cn(className)}>
+    <Avatar
+      className={cn(
+        className,
+        "relative flex shrink-0 overflow-hidden rounded-full",
+      )}
+    >
       <AvatarImage src={profile.image ?? ""} alt="" />
       <AvatarFallback>{getProfileLetters(profile)}</AvatarFallback>
     </Avatar>
