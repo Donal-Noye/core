@@ -13,8 +13,11 @@ export const nextAuthConfig: AuthOptions = {
   adapter: {
     ...prismaAdapter,
     createUser: (user) => {
-      console.log("Creating user with data:", user);
-      return createUserUseCase.exec(user);
+      return createUserUseCase.exec({
+        ...user,
+        name: user.name ?? undefined,
+        email: user.email ?? undefined,
+      });
     },
   } as AuthOptions["adapter"],
   callbacks: {
@@ -51,9 +54,6 @@ export const nextAuthConfig: AuthOptions = {
       GithubProvider({
         clientId: privateConfig.GITHUB_ID!,
         clientSecret: privateConfig.GITHUB_SECRET!,
-        authorization: {
-          params: { scope: "user:email" },
-        },
       }),
   ]),
 };
