@@ -49,8 +49,8 @@ export const nextAuthConfig: AuthOptions = {
     privateConfig.GITHUB_ID &&
       privateConfig.GITHUB_SECRET &&
       GithubProvider({
-        clientId: privateConfig.GITHUB_ID,
-        clientSecret: privateConfig.GITHUB_SECRET,
+        clientId: privateConfig.GITHUB_ID!,
+        clientSecret: privateConfig.GITHUB_SECRET!,
         authorization: {
           params: { scope: "user:email" },
         },
