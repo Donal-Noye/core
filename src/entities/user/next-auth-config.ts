@@ -13,11 +13,7 @@ export const nextAuthConfig: AuthOptions = {
   adapter: {
     ...prismaAdapter,
     createUser: (user) => {
-      return createUserUseCase.exec({
-        ...user,
-        name: user.name ?? undefined,
-        email: user.email ?? undefined,
-      });
+      return createUserUseCase.exec(user);
     },
   } as AuthOptions["adapter"],
   callbacks: {
