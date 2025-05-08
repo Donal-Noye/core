@@ -4,8 +4,8 @@ const nextConfig = {
     serverActions: {
       allowedOrigins: [
         "localhost:3000",
-        "staging.micro-courses.ru",
-        "micro-courses.ru",
+        "staging.24micro-courses.ru",
+        "24micro-courses.ru",
       ],
     },
   },
