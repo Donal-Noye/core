@@ -101,7 +101,6 @@ export function ProfileForm({
         <FormField
           control={form.control}
           name="image"
-          disabled
           render={({ field }) => (
             <FormItem>
               <FormLabel>Аватарка</FormLabel>
