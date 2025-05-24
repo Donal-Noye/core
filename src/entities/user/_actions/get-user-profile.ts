@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from "zod";
-import { getUserUseCase } from "@/entities/user/_use-case/get-user";
+import { getUserService } from "@/entities/user/_services/get-user";
 import { getAppSessionStrictServer } from "@/entities/user/session.server";
 import { profileSchema } from "@/entities/user/_domain/schema";
 
@@ -20,7 +20,7 @@ export const getUserProfileAction = async (
 
   const session = await getAppSessionStrictServer();
 
-  const user = await getUserUseCase.exec({
+  const user = await getUserService.exec({
     session,
     userId,
   });

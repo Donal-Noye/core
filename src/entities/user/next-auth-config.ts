@@ -5,7 +5,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { dbClient } from "@/shared/lib/db";
 import { privateConfig } from "@/shared/config/private";
 import { compact } from "lodash-es";
-import { createUserUseCase } from "./_use-case/create-user";
+import { createUserService } from "@/entities/user/_services/create-user";
 
 const prismaAdapter = PrismaAdapter(dbClient);
 
@@ -21,7 +21,7 @@ export const nextAuthConfig: AuthOptions = {
   adapter: {
     ...prismaAdapter,
     createUser: (user) => {
-      return createUserUseCase.exec(user);
+      return createUserService.exec(user);
     },
   } as AuthOptions["adapter"],
   callbacks: {

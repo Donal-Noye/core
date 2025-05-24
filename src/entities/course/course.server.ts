@@ -1,1 +1,1 @@
-export { getCoursesListUseCase } from "@/entities/course/_use-cases/get-courses-list";
+export { getCoursesListService } from "@/entities/course/_services/get-courses-list";
