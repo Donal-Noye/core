@@ -1,15 +1,15 @@
-import { CacheStrategy } from "@/shared/api/content/_lib/cache-strategy";
-import { ContentParser } from "@/shared/api/content/_lib/content-parser";
-import { FileFetcher } from "@/shared/api/content/_lib/file-fetcher";
-import { Manifest } from "@/shared/api/content/_schemas/manifest.schema";
-import manifestSchema from "@/shared/api/content/_schemas/manifest.schema.json";
-import courseSchema from "@/shared/api/content/_schemas/course.schema.json";
-import lessonSchema from "@/shared/api/content/_schemas/lesson.schema.json";
 import { join } from "path";
-import { Course } from "@/shared/api/content/_schemas/course.schema";
-import { Lesson } from "@/shared/api/content/_schemas/lesson.schema";
+import { ContentParser } from "./_lib/content-parser";
+import { FileFetcher } from "./_lib/file-fetcher";
+import manifestSchema from "./_schemas/manifest.schema.json";
+import courseSchema from "./_schemas/course.schema.json";
+import lessonSchema from "./_schemas/lesson.schema.json";
+import { Course } from "./_schemas/course.schema";
+import { Lesson } from "./_schemas/lesson.schema";
+import { Manifest } from "./_schemas/manifest.schema";
 import { loggedMethod } from "@/shared/lib/logger";
 import { pick } from "lodash-es";
+import {CacheStrategy} from "./_lib/cache-strategy";
 
 interface Deps {
   cacheStrategy: CacheStrategy;
@@ -37,7 +37,7 @@ export class ContentApi {
   })
   private async fetchManifestQuery() {
     const text = await this.d.fileFetcher.fetchText(this.getManifestUrl());
-    return this.d.contentParser.parse<Manifest>(text, manifestSchema);
+    return await this.d.contentParser.parse<Manifest>(text, manifestSchema);
   }
 
   async fetchCourse(slug: CourseSlug) {
@@ -47,10 +47,9 @@ export class ContentApi {
   }
 
   @loggedMethod({
-    logArgs: (slug: CourseSlug) => ({
-      slug,
-    }),
-    logRes: (res: Course, slug) => pick({...res, slug}, ["id", "title", "slug"]),
+    logArgs: (slug: CourseSlug) => ({ slug }),
+    logRes: (res: Course, slug) =>
+      pick({ ...res, slug }, ["id", "title", "slug"]),
   })
   private async fetchCourseQuery(slug: string) {
     const text = await this.d.fileFetcher.fetchText(this.getCourseUrl(slug));
@@ -83,11 +82,9 @@ export class ContentApi {
   private getManifestUrl() {
     return join(this.baseUrl, "manifest.yaml");
   }
-
   private getCourseUrl(slug: CourseSlug) {
     return join(this.baseUrl, `/courses/${slug}/course.yaml`);
   }
-
   private getLessonUrl(courseSlug: CourseSlug, lessonSlug: LessonSlug) {
     return join(
       this.baseUrl,

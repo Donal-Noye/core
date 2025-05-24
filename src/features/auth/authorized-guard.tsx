@@ -1,9 +1,9 @@
 "use client";
 
-import { useAppSession } from "@/entities/user/_vm/_ui/use-app-session";
 import { FullPageSpinner } from "@/shared/ui/full-page-spinner";
 import { signIn } from "next-auth/react";
 import React, { useEffect } from "react";
+import { useAppSession } from "@/kernel/lib/next-auth/client";
 
 export default function AuthorizedGuard({
   children,

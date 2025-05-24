@@ -1,7 +1,7 @@
 import { Separator } from "@/shared/ui/separator";
 import { UpdateProfileForm } from "@/features/update-profile/update-profile-form";
-import { getAppSessionServer } from "@/entities/user/session.server";
 import { redirect } from "next/navigation";
+import { getAppSessionServer } from "@/kernel/lib/next-auth/server";
 
 export default async function NewUserPage({
   searchParams,
