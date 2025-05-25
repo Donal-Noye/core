@@ -6,7 +6,6 @@ import { dbClient } from "@/shared/lib/db";
 import { privateConfig } from "@/shared/config/private";
 import { compact } from "lodash-es";
 import {createId} from "@/shared/lib/id";
-import {userRepository} from "@/entities/user/_repositories/user";
 import {ROLES, SharedUser} from "@/kernel/domain/user";
 
 const prismaAdapter = PrismaAdapter(dbClient);

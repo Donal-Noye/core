@@ -2,13 +2,31 @@
 
 import { ThemeProvider } from "@/features/theme/theme-provider";
 import { ComposeChildren } from "@/shared/lib/react";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { queryClient } from "@/shared/api/query-client";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AppSessionProvider } from "@/kernel/lib/next-auth/client";
+import { useState } from "react";
+import { httpBatchLink } from "@trpc/client";
+import { sharedApi } from "@/kernel/lib/trpc/client";
+import { publicConfig } from "@/shared/config/public-config";
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
+  const [queryClient] = useState(() => new QueryClient());
+  const [trpcClient] = useState(() =>
+    sharedApi.createClient({
+      links: [
+        httpBatchLink({
+          url: `${publicConfig.PUBLIC_URL}/api/trpc`,
+        }),
+      ],
+    }),
+  );
+
   return (
     <ComposeChildren>
+      <sharedApi.Provider client={trpcClient} queryClient={queryClient}>
+        <></>
+      </sharedApi.Provider>
+      <QueryClientProvider client={queryClient} />
       <ThemeProvider
         attribute="class"
         defaultTheme="system"
@@ -16,7 +34,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         disableTransitionOnChange
       />
       <AppSessionProvider />
-      <QueryClientProvider client={queryClient} />
       {children}
     </ComposeChildren>
   );
