@@ -1,3 +1,5 @@
+import "reflect-metadata"
+
 import { createContext, sharedRouter, t } from "@/kernel/lib/trpc/server";
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 import {coursesListController} from "@/features/courses-list/controller";
