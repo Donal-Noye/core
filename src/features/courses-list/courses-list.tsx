@@ -1,9 +1,8 @@
-
 import { CoursesListClient } from "@/features/courses-list/_ui/courses-list";
-import { coursesListServerApi } from "@/features/courses-list/controller";
+import { coursesListHttpApi } from "@/features/courses-list/_api";
 
 export async function CoursesList() {
-  const coursesList = await coursesListServerApi.coursesList.get.fetch()
+  const coursesList = await coursesListHttpApi.coursesList.get.query()
 
   return (
     <CoursesListClient defaultList={coursesList} />

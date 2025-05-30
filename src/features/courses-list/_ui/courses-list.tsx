@@ -2,7 +2,7 @@
 
 import { CourseItem } from "@/features/courses-list/_ui/course-item";
 import { CourseEntity } from "@/entities/course/_domain/types";
-import { coursesListApi } from "@/features/courses-list/api";
+import { coursesListApi } from "@/features/courses-list/_api";
 
 export function CoursesListClient({
   defaultList,

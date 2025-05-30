@@ -2,8 +2,10 @@ import { cache } from "react";
 import { CourseEntity } from "@/entities/course/course";
 import { contentApi } from "@/shared/api/content";
 import { logger } from "@/shared/lib/logger";
+import { injectable } from "inversify";
 
-class Course {
+@injectable()
+export class CoursesRepository {
   getCoursesList = cache(async (): Promise<CourseEntity[]> => {
     const manifest = await contentApi.fetchManifest();
 
@@ -40,5 +42,3 @@ class Course {
       .map((course) => course.value);
   });
 }
-
-export const coursesRepository = new Course();

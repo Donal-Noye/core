@@ -1,8 +1,14 @@
-import { getAppSessionServer } from "@/kernel/lib/next-auth/server";
-import { AnyRouter, initTRPC, TRPCError } from "@trpc/server";
+import { AnyRouter, TRPCError, initTRPC } from "@trpc/server";
+import { getAppSessionServer } from "../next-auth/server";
 import { SharedSession } from "@/kernel/domain/user";
-import { z, ZodTypeAny } from "zod";
+import { ZodTypeAny, z } from "zod";
 import { createServerSideHelpers } from "@trpc/react-query/server";
+import { injectable } from "inversify";
+
+@injectable()
+export abstract class Controller {
+  abstract router: AnyRouter;
+}
 
 export const createContext = async () => {
   const session = await getAppSessionServer();
@@ -59,7 +65,7 @@ export const checkAbilityInputProcedure = <Ability, Input extends ZodTypeAny>({
   check: (ability: Ability, input: z.infer<Input>) => boolean;
   create: (session: SharedSession) => Ability;
 }) =>
-  authorizedProcedure.use(({ ctx, next, input: params }) => {
+  authorizedProcedure.input(input).use(({ ctx, next, input: params }) => {
     const ability = create(ctx.session);
 
     if (!check(ability, params)) {

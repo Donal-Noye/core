@@ -1,16 +1,16 @@
 import { QueryClient } from "@tanstack/react-query";
 
-export interface CacheStrategy {
+export interface CacheStategy {
   fetch<T>(key: unknown[], getData: () => Promise<T>): Promise<T>;
 }
 
-export class DummyCacheStrategy {
+export class DummyCacheStrategy implements CacheStategy {
   fetch<T>(_: unknown[], getData: () => Promise<T>): Promise<T> {
     return getData();
   }
 }
 
-export class ReactQueryCacheStrategy implements CacheStrategy {
+export class ReactQueryCacheStrategy implements CacheStategy {
   private timer: any;
 
   constructor(
